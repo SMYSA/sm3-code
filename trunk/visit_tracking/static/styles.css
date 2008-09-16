@@ -1,0 +1,45 @@
+a {text-decoration:none;color:#009}
+body.t {background-color:#996;margin:0;padding:0}
+body,table,textarea {font:9pt arial,sans-serif}
+div.wrap {margin:0 36 0 20;border:#663 solid;border-width:0 1}
+table.wrap {width:100%;table-layout:fixed}
+td {border-width:0;vertical-align:top}
+.pad {width:10}
+.pad,.main {background:#cc9}
+.left {width:160;text-align:center;padding-bottom:10;background:white;
+       border-width:0 1;border-color:#996;border-style:solid}
+.left, .left h1 a {color:#330}
+.left img {margin:10 0 16}
+.left p {margin:2 0;padding:0}
+.left p.p {margin-bottom:6}
+.main {padding:10 20}
+h1 {margin:10 0;font-size:12pt;font-weight:normal}
+h2 {margin:0;font-size:10pt;font-weight:bold}
+.main h1 {font-weight:bold}
+@media print {
+}
+
+table.m {margin:0 30}
+table.m td {text-align:center;width:10ex}
+table.m td.r {width:2ex}
+table.a {margin: 0 auto}
+table.a td.d {text-align:center;color:#663;padding:10 0 2}
+table.a td.dd {text-align:center;padding:10 0 2}
+table.a td.l, table.a td.s, table.a div.c {padding:2 6}
+table.a td.l {text-align:center;background-color:#996;font-weight:bold;
+              color:#fff}
+table.a td.ll {text-align:center;font-weight:bold;}
+table.a div.s {font-size:1;height:5}
+table.a div.c {background-color:#fff;cursor:pointer;border:1px solid #996}
+table.a div.c:hover {border-color:#442}
+table.a div.f {padding:1;margin-top:2;border:1px solid #000}
+table.a div.e {margin-left:4}
+
+#u div.r {padding:16 0 4}
+#u em {font-style:normal;color:#441}
+#f tr.o td {background-color:#e2e2b2}
+#f td.t {width:20ex;text-align:right;padding-right:6}
+#f td.u {font-weight:bold;color:#060}
+#e {padding-left:10;color:#900}
+div.rg {padding:2 0 6 8}
+form td {vertical-align:middle}
