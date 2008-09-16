@@ -77,11 +77,13 @@ def PrintTotalVisits(ht_or_vt, month_diff):
   HtmlReuse.CalcDateOffset(month_diff)
   reports = DataModule.GetReports(ht_or_vt, HtmlReuse.year, HtmlReuse.month)
   total_visits = 0
+  total_houses = 0
   for key in reports:
+    total_houses += 1
     if reports[key].visited:
       total_visits += 1
 
-  print "Total visits for this month: %d" % total_visits
+  print "Total visits for this month: %d" % total_visits % "out of %d" % total_houses
 
 def PrintTableStyle():
   print (" table.r tr.rh td.le "
