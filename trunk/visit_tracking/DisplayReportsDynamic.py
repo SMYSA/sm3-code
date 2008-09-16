@@ -83,7 +83,7 @@ def PrintTotalVisits(ht_or_vt, month_diff):
     if reports[key].visited:
       total_visits += 1
 
-  print "Total visits for this month: %d" % total_visits  "out of %d" % total_houses
+  print "Total visits for this month: %d" % total_visits,  "out of %d" % total_houses
 
 def PrintTableStyle():
   print (" table.r tr.rh td.le "
