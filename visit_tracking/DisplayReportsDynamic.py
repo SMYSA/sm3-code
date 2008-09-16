@@ -1,9 +1,10 @@
 #!/usr/bin/python
-
+from __future__ import division
 import Common
 import HtmlReuse
 import Sm3Ht
 import DataModule
+
 
 def FillEmptyMonths(ht_or_vt, assignment_reports):
   keys = assignment_reports.keys()
@@ -82,8 +83,14 @@ def PrintTotalVisits(ht_or_vt, month_diff):
     total_houses += 1
     if reports[key].visited:
       total_visits += 1
-  print "Total visits for this month: %d" % total_visits,  "out of %d" % total_houses
-  
+  if total_visits == 0:
+	print "No visits recorded yet"
+  elif total_houses == 0:
+    print "No Report Yet"
+  else:
+	perc=total_visits/total_houses
+	print "Total visits for this month: %d" % total_visits,  "out of %d" % total_houses, "%% %.2f" %perc  
+	
 def PrintTotalReported(ht_or_vt, month_diff):
   HtmlReuse.CalcDateOffset(month_diff)
   reports = DataModule.GetReports(ht_or_vt, HtmlReuse.year, HtmlReuse.month)
@@ -93,7 +100,13 @@ def PrintTotalReported(ht_or_vt, month_diff):
     total_houses += 1
     if reports[key].reported:
       total_reported += 1
-  print "Total reported: %d" % total_reported,  "out of %d" % total_houses
+  if total_reported == 0:
+	print "No visits recorded yet"
+  elif total_houses == 0:
+    print ""
+  else:
+    perc2=total_reported/total_houses
+    print "Total reported: %d" % total_reported,  "out of %d" % total_houses, "%% %.2f" %perc2
 
 def PrintTableStyle():
   print (" table.r tr.rh td.le "
