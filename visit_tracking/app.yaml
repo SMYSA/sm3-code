@@ -1,0 +1,35 @@
+application: sm3
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  script: index.py
+
+- url: /upload
+  script: upload.py
+
+- url: /display_assignments
+  script: display_assignments.py
+
+- url: /report_assignment
+  script: report_assignment.py
+
+- url: /record_report
+  script: record_report.py
+
+- url: /display_reports
+  script: display_reports.py
+
+- url: /month_report
+  script: month_report.py
+
+- url: /contact
+  script: contact.py
+
+- url: /test_auth
+  script: test_auth.py
+
+- url: /static
+  static_dir: static
