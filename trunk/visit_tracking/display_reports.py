@@ -48,6 +48,8 @@ HtmlReuse.PrintCal("display_reports?group=%s&report_type=%s" % (ht_or_vt,
 print "<br>"
 print "<div style='text-align:center'>"
 DisplayReportsDynamic.PrintTotalVisits(ht_or_vt, month_diff)
+print "<br>"
+DisplayReportsDynamic.PrintTotalReported(ht_or_vt, month_diff)
 print "</div>"
 print ("<a href='display_reports?group=%s&chm=%d&report_type=assignment" %
     (ht_or_vt, month_diff) + "'>By Assignment</a>")
