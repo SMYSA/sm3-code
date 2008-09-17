@@ -89,7 +89,7 @@ def PrintTotalVisits(ht_or_vt, month_diff):
     print "No Report Yet"
   else:
 	perc=100*total_visits/total_houses
-	print "Total visits for this month: %d" % total_visits,  "out of %d" % total_houses, " %.2f" %perc, "%%"  
+	print "Total visits for this month: %d" % total_visits,  "out of %d" % total_houses, ": %.1f" %perc, "%"  
 	
 def PrintTotalReported(ht_or_vt, month_diff):
   HtmlReuse.CalcDateOffset(month_diff)
@@ -106,7 +106,7 @@ def PrintTotalReported(ht_or_vt, month_diff):
     print ""
   else:
     perc2=100*total_reported/total_houses
-    print "Total reported: %d" % total_reported,  "out of %d" % total_houses, "%.2f" %perc2, "%%" 
+    print "Total reported: %d" % total_reported,  "out of %d" % total_houses, ": %.1f" %perc2, "%" 
 
 def PrintTableStyle():
   print (" table.r tr.rh td.le "
