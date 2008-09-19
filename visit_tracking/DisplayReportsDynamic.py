@@ -54,6 +54,7 @@ def FillTeacherDictForMonth(ht_or_vt, offset, index, teachers):
       j = comp.junior_comp.first_name + " " + comp.junior_comp.last_name
       if not teachers.has_key(s):
         teachers[s] = {}
+      if not teachers.has_key(j):
         teachers[j] = {}
       for teachee in comp.assignments:
         if reports[teachee.first_name + " " + teachee.last_name].visited:
