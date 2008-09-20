@@ -196,3 +196,33 @@ def PrintReportByTeacher(ht_or_vt, month_diff):
       print "<td class='%s'></td>" % (rows[r][m])
     print "</tr>"
   print "</table>"
+  
+  
+def PrintNoReportByTeacher(ht_or_vt, month_diff):
+  rows = GetDictByTeacher(ht_or_vt, month_diff)
+  print "<style type='text/css'>"
+  keys = rows.keys()
+  keys.sort(lambda a,b: cmp(a.split(' ')[-1], b.split(' ')[-1]))
+  for r in keys:
+    if rows[r][11] == "not_reported":
+      if rows[r][10] == "not_reported":
+        print "%s" % r,"<br>"
+
+        
+def PrintNoReportByAssignment(ht_or_vt, month_diff):
+  rows = GetDictByAssignment(ht_or_vt, month_diff)
+  keys = rows.keys()
+  keys.sort(lambda a,b: cmp(a.split(' ')[-1], b.split(' ')[-1]))
+  for r in keys:
+    if assignment_reports[r][11]== "not_reported"
+      print "%s" % r,"<br>"
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
