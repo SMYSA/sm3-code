@@ -68,7 +68,15 @@ elif form.has_key("action"):
 #
 #
 print "<a href=display_reports?group=%s>Click here </a>" % ht_or_vt
-print "if you want to see the report page"
+print "if you want to see the report page<br>"
+print "<a href=display_assignments?group=%s>Click here </a>" % ht_or_vt
+print "if you want to see the assignments page<br>"
+print "<a href=month_report?group=%s>Click here </a>" % ht_or_vt
+print "if you want to see the month report page page<br>"
+print "<a href=display_novisits?group=%s>Click here </a>" % ht_or_vt
+print "to see who has not reported any visits in two monhts<br>"
+print "<a href=display_notvisited?group=%s>Click here </a>" % ht_or_vt
+print "to see has not had a hometeacher report visiting them in 3 months<br>"
 print "<br/><br/>"
 HtmlReuse.PrintCal("upload?group=%s" % ht_or_vt, month_diff)
 print "<br/><br/>"
