@@ -65,6 +65,12 @@ def PrintValidateFuncs():
 
 def PrintHtml(d, c, ht_or_vt, districts, reports, month_diff):
   PrintValidateFuncs()
+  try:
+    comp = districts[d].companionships[c];
+  except:
+    print "This companionship did not exist this month"
+    return
+
   print "<div id='f'>"
   print "<form onsubmit='return validate(this);'>"
   print "<input type='hidden' name='group' value='%s'>" % ht_or_vt
@@ -74,13 +80,12 @@ def PrintHtml(d, c, ht_or_vt, districts, reports, month_diff):
   print "<div>Who is this report for?</div>"
   print "<div class='rg'>"
   print "<table cellpadding=0 cellspacing=0>"
-  comp = districts[d].companionships[c];
   for i in xrange(len(comp.assignments)):
     a = comp.assignments[i];
     name = a.first_name + " " + a.last_name
     print "<tr " + ((i&1) and " " or "class='o'") + ">"
-    print ("<td><input type=radio id='ee" + str(i) + "' name='teachee' value='"
-        + name + "'</td>")
+    print ("<td><input type=radio id='ee" + str(i) + "' name='teachee' value=\""
+        + name + "\"</td>")
     print "<td>" + name + "</td>"
     print ("<td class='t" + (reports[name].reported and " u'>report received" or
           "'>not yet reported") + "</td>")
