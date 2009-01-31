@@ -3,6 +3,8 @@
 import cgi
 import cgitb; cgitb.enable()
 import os
+import sys
+
 import HtmlReuse
 import Common
 import DisplayAssignmentsDynamic

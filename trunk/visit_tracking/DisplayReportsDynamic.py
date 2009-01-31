@@ -214,7 +214,7 @@ def PrintNoReportByAssignment(ht_or_vt, month_diff):
   keys = rows.keys()
   keys.sort(lambda a,b: cmp(a.split(' ')[-1], b.split(' ')[-1]))
   for r in keys:
-    if assignment_reports[r][11]== "not_reported"
+    if assignment_reports[r][11] == "not_reported":
       print "%s" % r,"<br>"
 
   
