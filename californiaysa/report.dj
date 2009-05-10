@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <table>
+      {% for q in questions %}
+        <tr>
+          <td>{{ q.text }}</td>
+          {% ifequal q.type "string" %}
+            <td><input type='text' name='{{ q.id }}' id='{{ q.id }}'></td>
+          {% endifequal %}
+          {% ifequal q.type "datetime" %}
+            <td><input type='text' name='{{ q.id }}' id='{{ q.id }}'></td>
+          {% endifequal %}
+          {% ifequal q.type "int" %}
+            <td><input type='text' name='{{ q.id }}' id='{{ q.id }}'></td>
+          {% endifequal %}
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

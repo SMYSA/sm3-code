@@ -1,0 +1,153 @@
+<html>
+  <head>
+    <script src=validators.js></script>
+    <script>
+      __custom_ids = [
+        "stake",
+        "unit",
+        "name",
+        "email",
+        "phone",
+        ];
+      __int_ids = [
+        "member_count",
+        "active_count",
+        "less_active_count",
+        "stake_ysas",
+        "current_temple",
+        "expired_temple",
+        "potential_temple",
+        "temple_distance",
+        "may17",
+        "august8",
+        "voters",
+      ];
+      function Validate() {
+        document.report_form["submit_attempt"] = true;
+        var has_error = false;
+        var email = document.getElementById('email');
+        var phone = document.getElementById('phone');
+        var stake = document.getElementById('stake');
+        var unit = document.getElementById('unit');
+
+        has_error = SetError(!is_valid_email(email.value),
+                             "email_error",
+                             "Not a valid email address");
+        
+        has_error = SetError(!is_valid_phone(phone.value),
+                             "phone_error",
+                             "Not a valid phone number") || has_error;
+
+        has_error = SetError(!__stake_names[stake.value],
+                             "stake_error",
+                             "Couldn't match Stake Name") || has_error;
+
+        has_error = SetError(!__unit_names[unit.value],
+                             "unit_error",
+                             "Couldn't match Unit Name") || has_error;
+
+        for (var i = 0; i < __int_ids.length; i++) {
+          var int_val = document.getElementById(__int_ids[i]);
+          has_error = SetError(!is_valid_int(int_val.value),
+                               int_val.id + "_error",
+                              "Should be an integer value") || has_error;
+        }
+        return !has_error;
+      }
+      function MaybeValidate() {
+        if (document.report_form["submit_attempt"]) {
+          Validate();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form onsubmit='return Validate();' name='report_form' id='report_form' action='submit/initial_assessment' method='GET'>
+    <table>
+        <tr>
+          <td>Stake:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='stake' id='stake'></td>
+          <td><div id='stake_error'></div></td>
+        </tr>
+        <tr>
+          <td>Unit:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='unit' id='unit'></td>
+          <td><div id='unit_error'></div></td>
+        </tr>
+        <tr>
+          <td>Name:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='name' id='name'></td>
+          <td><div id='name_error'></div></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='email' id='email'></td>
+          <td><div id='email_error'></div></td>
+        </tr>
+        <tr>
+          <td>Phone:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='phone' id='phone'></td>
+          <td><div id='phone_error'></div></td>
+        </tr>
+        <tr>
+          <td>Total Membership:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='member_count' id='member_count'></td>
+          <td><div id='member_count_error'></div></td>
+        </tr>
+        <tr>
+          <td>Total Active Members:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='active_count' id='active_count'></td>
+          <td><div id='active_count_error'></div></td>
+        </tr>
+        <tr>
+          <td>Total Less Active Members:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='less_active_count' id='less_active_count'></td>
+          <td><div id='less_active_count_error'></div></td>
+        </tr>
+        <tr>
+          <td>Total YSAs in Stake not in Unit (for singles wards):</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='stake_ysas' id='stake_ysas'></td>
+          <td><div id='stake_ysas_error'></div></td>
+        </tr>
+        <tr>
+          <td>Total Temple Recommend Holders:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='current_temple' id='current_temple'></td>
+          <td><div id='current_temple_error'></div></td>
+        </tr>
+        <tr>
+          <td>Expired Temple Recommend Holders:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='expired_temple' id='expired_temple'></td>
+          <td><div id='expired_temple_error'></div></td>
+        </tr>
+        <tr>
+          <td>Potential Temple Recommend Holders:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='potential_temple' id='potential_temple'></td>
+          <td><div id='potential_temple_error'></div></td>
+        </tr>
+        <tr>
+          <td>Average Distance to Temple:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='temple_distance' id='temple_distance'></td>
+          <td><div id='temple_distance_error'></div></td>
+        </tr>
+        <tr>
+          <td>Estimated Attendence on May 17:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='may17' id='may17'></td>
+          <td><div id='may17_error'></div></td>
+        </tr>
+        <tr>
+          <td>Estimated Attendence on Aug 8:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='august8' id='august8'></td>
+          <td><div id='august8_error'></div></td>
+        </tr>
+        <tr>
+          <td>Total Registered Voters:</td>
+          <td><input onkeyup='MaybeValidate();' type='text' name='voters' id='voters'></td>
+          <td><div id='voters_error'></div></td>
+        </tr>
+        <tr>
+          <td colspan=2><input type='submit' value='submit'></td>
+        </tr>
+    </table>
+    </form>
+  </body>
+</html>
