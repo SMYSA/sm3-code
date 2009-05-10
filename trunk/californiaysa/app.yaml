@@ -1,0 +1,17 @@
+application: californiaysa
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  script: main.py
+
+- url: /submit/.*
+  script: submit.py
+
+- url: /sql/.*
+  script: sql_dump.py
+
+- url: /
+  static_dir: static
