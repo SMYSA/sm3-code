@@ -22,6 +22,24 @@
         "august8",
         "voters",
       ];
+      function UpdateStakeNames() {
+        var stake = document.getElementById('stake');
+        stake_list = FilterList(stake.value, __stake_names);
+        var stake_list_node = document.getElementById('stake_list');
+        stake_list_node.innerHTML = "";
+        for (var i = 0; i < stake_list.length; i++) {
+          stake_list_node.innerHTML += stake_list[i] + "<br>";
+        }
+      }
+      function UpdateUnitNames() {
+        var unit = document.getElementById('unit');
+        unit_list = FilterList(unit.value, __unit_names);
+        var unit_list_node = document.getElementById('unit_list');
+        unit_list_node.innerHTML = "";
+        for (var i = 0; i < unit_list.length; i++) {
+          unit_list_node.innerHTML += unit_list[i] + "<br>";
+        }
+      }
       function Validate() {
         document.report_form["submit_attempt"] = true;
         var has_error = false;
@@ -38,14 +56,6 @@
                              "phone_error",
                              "Not a valid phone number") || has_error;
 
-        has_error = SetError(!__stake_names[stake.value],
-                             "stake_error",
-                             "Couldn't match Stake Name") || has_error;
-
-        has_error = SetError(!__unit_names[unit.value],
-                             "unit_error",
-                             "Couldn't match Unit Name") || has_error;
-
         for (var i = 0; i < __int_ids.length; i++) {
           var int_val = document.getElementById(__int_ids[i]);
           has_error = SetError(!is_valid_int(int_val.value),
@@ -59,20 +69,37 @@
           Validate();
         }
       }
+      function AddStakeUnits() {
+        var stakes = document.getElementById("stake_select");
+        var units = document.getElementById("unit_select");
+        AddSelectOptions(stakes, units);
+      }
+      function SetStakeFromUnit() {
+        var stakes = document.getElementById("stake_select");
+        var units = document.getElementById("unit_select");
+        var stake_name = __units_to_stakes[units.options[units.selectedIndex].value];
+        for (var i in stakes.options) {
+          if (stake_name == stakes.options[i].value) {
+            stakes.selectedIndex = i;
+            return;
+          }
+        }
+      }
     </script>
   </head>
-  <body>
+  <body onload='AddStakeUnits();'> 
     <form onsubmit='return Validate();' name='report_form' id='report_form' action='submit/initial_assessment' method='GET'>
+    <table><tr><td valign='top'>
     <table>
         <tr>
-          <td>Stake:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='stake' id='stake'></td>
-          <td><div id='stake_error'></div></td>
+          <td>Unit:</td>
+          <td><select onchange='SetStakeFromUnit();' name="unit_select" id = "unit_select"></td>
+          <td><div id='unit_error'></div></td>
         </tr>
         <tr>
-          <td>Unit:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='unit' id='unit'></td>
-          <td><div id='unit_error'></div></td>
+          <td>Stake:</td>
+          <td><select name="stake_select" id = "stake_select"></td>
+          <td><div id='stake_error'></div></td>
         </tr>
         <tr>
           <td>Name:</td>
@@ -148,6 +175,8 @@
           <td colspan=2><input type='submit' value='submit'></td>
         </tr>
     </table>
+    </td>
+    </tr></table>
     </form>
   </body>
 </html>
