@@ -28,8 +28,8 @@ class InitialAssessmentHandler(webapp.RequestHandler):
 
   def get(self):
     a = InitialAssessment()
-    a.unit = self.request.get("unit")
-    a.stake = self.request.get("stake")
+    a.unit = self.request.get("unit_select")
+    a.stake = self.request.get("stake_select")
     a.name = self.request.get("name")
     a.email = self.request.get("email")
     a.phone = self.request.get("phone")
@@ -47,6 +47,7 @@ class InitialAssessmentHandler(webapp.RequestHandler):
     a.submit_date = datetime.now()
     a.put()
 
+#    self.response.out.write(str(self.request))
     self.redirect("/thanks.html")
 
 
