@@ -16,8 +16,7 @@
 #
 
 
-from google.appengine.ext import db
-
+from google.appengine.ext import db 
 class InitialAssessment(db.Model):
   unit = db.StringProperty()
   stake = db.StringProperty()
@@ -41,6 +40,26 @@ class InitialAssessment(db.Model):
 
   def PrintInsertStatement(self, writer):
     writer.write("INSERT INTO %s " % self.DB_NAME)
+    writer.write(("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, " +
+        "%s, %s, %s, %s) ") % (
+          "Unit",
+          "Stake",
+          "Name",
+          "Email",
+          "Phone",
+          "Total_Membership",
+          "Active_Membership",
+          "Less_Active_members",
+          "Stake_YSA",
+          "Current_temple_recommend_holders",
+          "Expired_temple_recommends",
+          "Potential_temple_recommends",
+          "Avg_temple_distance",
+          "May17_Estimate",
+          "August8_Estimate",
+          "Registered_Voters",
+          "Submit_Date",
+          ))
     writer.write("VALUES('%s', '%s', '%s', '%s', '%s'," % (
             self.unit, self.stake, self.name, self.email, self.phone))
     writer.write("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s');\n" % (
