@@ -1,5 +1,9 @@
 <html>
   <head>
+    <link type="text/css" rel="stylesheet" href="//spreadsheets.google.com/client/css/1841860247-embedded_form_compiled.css">
+    <style type="text/css">
+      @media print{@page {size:A5}body{padding:0;background-color:#fff}.ss-form-container{width:100%;border:none}}
+    </style>
     <script src=validators.js></script>
     <script>
       __custom_ids = [
@@ -20,7 +24,7 @@
         "temple_distance",
         "may17",
         "august8",
-        "voters",
+        "voters"
       ];
       function UpdateStakeNames() {
         var stake = document.getElementById('stake');
@@ -50,17 +54,17 @@
 
         has_error = SetError(!is_valid_email(email.value),
                              "email_error",
-                             "Not a valid email address");
+                             "Please enter a valid email address");
         
         has_error = SetError(!is_valid_phone(phone.value),
                              "phone_error",
-                             "Not a valid phone number") || has_error;
+                             "Please use this format: (xxx) xxx-xxxx") || has_error;
 
         for (var i = 0; i < __int_ids.length; i++) {
           var int_val = document.getElementById(__int_ids[i]);
           has_error = SetError(!is_valid_int(int_val.value),
                                int_val.id + "_error",
-                              "Should be an integer value") || has_error;
+                              "Please enter a number (no decimals)") || has_error;
         }
         return !has_error;
       }
@@ -86,97 +90,116 @@
         }
       }
     </script>
+    <title>Initial Assesment</title>
   </head>
-  <body onload='AddStakeUnits();'> 
-    <form onsubmit='return Validate();' name='report_form' id='report_form' action='submit/initial_assessment' method='GET'>
-    <table><tr><td valign='top'>
-    <table>
-        <tr>
-          <td>Unit:</td>
-          <td><select onchange='SetStakeFromUnit();' name="unit_select" id = "unit_select"></td>
-          <td><div id='unit_error'></div></td>
-        </tr>
-        <tr>
-          <td>Stake:</td>
-          <td><select name="stake_select" id = "stake_select"></td>
-          <td><div id='stake_error'></div></td>
-        </tr>
-        <tr>
-          <td>Name:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='name' id='name'></td>
-          <td><div id='name_error'></div></td>
-        </tr>
-        <tr>
-          <td>Email:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='email' id='email'></td>
-          <td><div id='email_error'></div></td>
-        </tr>
-        <tr>
-          <td>Phone:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='phone' id='phone'></td>
-          <td><div id='phone_error'></div></td>
-        </tr>
-        <tr>
-          <td>Total Membership:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='member_count' id='member_count'></td>
-          <td><div id='member_count_error'></div></td>
-        </tr>
-        <tr>
-          <td>Total Active Members:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='active_count' id='active_count'></td>
-          <td><div id='active_count_error'></div></td>
-        </tr>
-        <tr>
-          <td>Total Less Active Members:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='less_active_count' id='less_active_count'></td>
-          <td><div id='less_active_count_error'></div></td>
-        </tr>
-        <tr>
-          <td>Total YSAs in Stake not in Unit (for singles wards):</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='stake_ysas' id='stake_ysas'></td>
-          <td><div id='stake_ysas_error'></div></td>
-        </tr>
-        <tr>
-          <td>Total Temple Recommend Holders:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='current_temple' id='current_temple'></td>
-          <td><div id='current_temple_error'></div></td>
-        </tr>
-        <tr>
-          <td>Expired Temple Recommend Holders:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='expired_temple' id='expired_temple'></td>
-          <td><div id='expired_temple_error'></div></td>
-        </tr>
-        <tr>
-          <td>Potential Temple Recommend Holders:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='potential_temple' id='potential_temple'></td>
-          <td><div id='potential_temple_error'></div></td>
-        </tr>
-        <tr>
-          <td>Average Distance to Temple:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='temple_distance' id='temple_distance'></td>
-          <td><div id='temple_distance_error'></div></td>
-        </tr>
-        <tr>
-          <td>Estimated Attendence on May 17:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='may17' id='may17'></td>
-          <td><div id='may17_error'></div></td>
-        </tr>
-        <tr>
-          <td>Estimated Attendence on Aug 8:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='august8' id='august8'></td>
-          <td><div id='august8_error'></div></td>
-        </tr>
-        <tr>
-          <td>Total Registered Voters:</td>
-          <td><input onkeyup='MaybeValidate();' type='text' name='voters' id='voters'></td>
-          <td><div id='voters_error'></div></td>
-        </tr>
-        <tr>
-          <td colspan=2><input type='submit' value='submit'></td>
-        </tr>
-    </table>
-    </td>
-    </tr></table>
+  <body onload='AddStakeUnits();' class="ss-base-body">
+  <div class="ss-form-container">
+    <h1 class="ss-form-title">Initial Assesment</h1>
+    <p></p>
+    <div class="ss-form-desc">Please fill out the form for your Ward or Branch by May 17th. &nbsp;THANK YOU!</div>
+    <p></p>
+    <hr class="ss-email-break" style="display:none;">
+    <span class="ss-required-asterisk">* Required</span>
+    <form onsubmit='return Validate();' name='report_form' id='report_form' action='submit/initial_assessment' method='GET'> <div class="errorbox-good"><div class="ss-form-entry">
+        <br>
+        <label class="ss-q-title">Unit<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <select onchange='SetStakeFromUnit();' name="unit_select" id = "unit_select"></select>
+        <span id='unit_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Stake<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <select name="stake_select" id = "stake_select"></select>
+        <span id='stake_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Name<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='name' id='name'></input>
+        <span id='name_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Email<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='email' id='email'></input>
+        <span id='email_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Phone<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help">Example: (xxx) xxx-xxxx</label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='phone' id='phone'></input>
+        <span id='phone_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Total Membership<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='member_count' id='member_count'></input>
+        <span id='member_count_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Total Active Members<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='active_count' id='active_count'></input>
+        <span id='active_count_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Total Less Active Members<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='less_active_count' id='less_active_count'></input>
+        <span id='less_active_count_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Total YSAs in Stake not in Unit (for singles wards)<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='stake_ysas' id='stake_ysas'></input>
+        <span id='stake_ysas_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Total Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='current_temple' id='current_temple'></input>
+        <span id='current_temple_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Expired Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='expired_temple' id='expired_temple'></input>
+        <span id='expired_temple_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Potential Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='potential_temple' id='potential_temple'></input>
+        <span id='potential_temple_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Average Distance To Temple<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='temple_distance' id='temple_distance'></input>
+        <span id='temple_distance_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Estimated Attendence on May 17<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='may17' id='may17'></input>
+        <span id='may17_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Estimated Attendence on Aug 8<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='august8' id='august8'></input>
+        <span id='august8_error'></span>
+     </div></div>
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Total Registered Voters<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='voters' id='voters'></input>
+        <span id='voters_error'></span>
+     </div></div>
+     <br>
+     <input type='submit' value='Submit'>
     </form>
+    </div>
   </body>
 </html>
