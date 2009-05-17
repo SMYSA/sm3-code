@@ -30,15 +30,15 @@ class InitialAssessmentHandler(webapp.RequestHandler):
 
   def get(self):
     template_values = {
-#      "questions": [
-#          {"type": "string",
-#           "text": "this is a question",
-#           "id": "id1"},
-#          {"type": "string",
-#           "text": "this is a question2",
-#           "id": "id2"},],
+      "questions": [
+          {"type": "text",
+           "text": "this is a question",
+           "id": "id1"},
+          {"type": "text",
+           "text": "this is a question2",
+           "id": "id2"},],
     }
-    path = os.path.join(os.path.dirname(__file__), "report.html")
+    path = os.path.join(os.path.dirname(__file__), "entry_form.html")
     self.response.out.write(template.render(path, template_values))
 
 
