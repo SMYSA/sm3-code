@@ -12,12 +12,12 @@
         "name",
         "email",
         "phone",
+        "stake_ysas"
         ];
       __int_ids = [
         "member_count",
         "active_count",
         "less_active_count",
-        "stake_ysas",
         "current_temple",
         "expired_temple",
         "potential_temple",
@@ -133,43 +133,47 @@ We are collecting your contact information in case we need to follow-up with you
         <span id='phone_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Total Membership<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Total YSA Membership<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='member_count' id='member_count'></input>
         <span id='member_count_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Total Active Members<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Total Active YSA Members<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='active_count' id='active_count'></input>
         <span id='active_count_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Total Less Active Members<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Total Less Active YSA Members<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='less_active_count' id='less_active_count'></input>
         <span id='less_active_count_error'></span>
      </div></div>
+     <!-- 
       <div class="errorbox-good"><div class="ss-form-entry">
         <label class="ss-q-title">Total YSAs in Stake not in Unit (for singles wards)<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='stake_ysas' id='stake_ysas'></input>
         <span id='stake_ysas_error'></span>
      </div></div>
+     -->
+     <input class="ss-q-short" type='hidden' name='stake_ysas' id='stake_ysas' value="0">
+     </input>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Total Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Total YSA Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='current_temple' id='current_temple'></input>
         <span id='current_temple_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Expired Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Expired YSA Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='expired_temple' id='expired_temple'></input>
         <span id='expired_temple_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Potential Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Potential YSA Temple Recommend Holders<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='potential_temple' id='potential_temple'></input>
         <span id='potential_temple_error'></span>
@@ -193,7 +197,7 @@ We are collecting your contact information in case we need to follow-up with you
         <span id='august8_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
-        <label class="ss-q-title">Total Registered Voters<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-title">Total YSA Registered Voters<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='voters' id='voters'></input>
         <span id='voters_error'></span>

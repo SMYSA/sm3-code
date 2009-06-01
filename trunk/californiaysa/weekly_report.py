@@ -15,37 +15,44 @@
 # limitations under the License.
 #
 
+import os
 from datetime import datetime
 
 import wsgiref.handlers
 
 from google.appengine.ext import webapp
+from google.appengine.ext.webapp import template
 
-from InitialAssessment import InitialAssessment
 from WeeklyReport import WeeklyReport
 
 
-class InitialAssessmentHandler(webapp.RequestHandler):
-  def get(self):
-    assesments = InitialAssessment.gql("ORDER BY submit_date")
-    self.response.headers["Content-Type"] = "text/plain"
-    for a in assesments:
-      a.PrintInsertStatement(self.response.out)
-
 class WeeklyReportHandler(webapp.RequestHandler):
+
+  title = "Weekly Report"
+  description = "Please fill out the form for your Ward or Branch"
+  custom_validators = "<script src='weekly_validators.js'></script>"
+  onload = "onload='AddStakeUnits();'"
+  form_action = "/submit/weekly_report"
+
   def get(self):
-    reports = WeeklyReport.gql("ORDER BY submit_date")
-    self.response.headers["Content-Type"] = "text/plain"
-    for r in reports:
-      r.PrintInsertStatement(self.response.out)
+    report = WeeklyReport()
+    template_values = {
+      "title_text": self.title,
+      "description": self.description,
+      "custom_validators": self.custom_validators,
+      "onload_event": self.onload,
+      "form_action": self.form_action,
+      "questions": report.GetQuestionList(),
+    }
+    path = os.path.join(os.path.dirname(__file__), "entry_form.html")
+    self.response.out.write(template.render(path, template_values))
 
 
 def main():
   application = webapp.WSGIApplication([
-      ('/sql/initial_assessment', InitialAssessmentHandler),
-      ('/sql/weekly_report', WeeklyReportHandler),
+      ('/weekly_report', WeeklyReportHandler),
       ],
-      debug=True)
+                                       debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
 
