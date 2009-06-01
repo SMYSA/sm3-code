@@ -22,6 +22,7 @@ import wsgiref.handlers
 from google.appengine.ext import webapp
 
 from InitialAssessment import InitialAssessment
+from WeeklyReport import WeeklyReport
 
 
 class InitialAssessmentHandler(webapp.RequestHandler):
@@ -50,10 +51,47 @@ class InitialAssessmentHandler(webapp.RequestHandler):
 #    self.response.out.write(str(self.request))
     self.redirect("/thanks.html")
 
+class WeeklyReportHandler(webapp.RequestHandler):
+
+  def get(self):
+    r = WeeklyReport()
+    r._entity = None
+    r.unit = self.request.get("unit_select")
+    r.stake = self.request.get("stake_select")
+    r.name = self.request.get("name")
+    r.email = self.request.get("email")
+    r.phone = self.request.get("phone")
+    r.less_active_visits = int(self.request.get("less_active_visits"))
+    r.stake_ysa_visits = int(self.request.get("stake_ysa_visits"))
+    r.renewed_temple_recommends = (
+      int(self.request.get("renewed_temple_recommends")))
+    r.reissued_temple_recommends = (
+      int(self.request.get("reissued_temple_recommends")))
+    r.first_time_temple_recommends = (
+      int(self.request.get("first_time_temple_recommends")))
+
+    r.temple_ordinances = int(self.request.get("temple_ordinances"))
+
+    # These values should be 0.  We keep them to maintain backward compatability
+    r.endowments = int(self.request.get("endowments"))
+    r.sealings = int(self.request.get("sealings"))
+    r.initiatories = int(self.request.get("initiatories"))
+    r.baptisms_confirmations = int(self.request.get("baptisms_confirmations"))
+    r.family_file_names = int(self.request.get("family_file_names"))
+    # End deprecated fields
+
+    r.registered_voters = int(self.request.get("registered_voters"))
+    r.submit_date = datetime.now()
+    r.put()
+
+#    self.response.out.write(str(self.request))
+    self.redirect("/thanks.html")
+
 
 def main():
   application = webapp.WSGIApplication([
       ('/submit/initial_assessment', InitialAssessmentHandler),
+      ('/submit/weekly_report', WeeklyReportHandler),
       ],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)

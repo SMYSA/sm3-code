@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="//spreadsheets.google.com/client/css/1841860247-embedded_form_compiled.css">
+    <style type="text/css">
+      @media print{@page {size:A5}body{padding:0;background-color:#fff}.ss-form-container{width:100%;border:none}}
+    </style>
+    <script src=validators.js></script>
+    {{ custom_validators }}
+   <title>{{ title_text }}</title>
+  </head>
+  <body class='ss-base-body'  {{ onload_event }}>
+    <div class="ss-form-container">
+      <h1 class="ss-form-title">{{ title_text }}</h1>
+      <p></p>
+      <div class="ss-form-desc">{{ description }}</div>
+      <p></p>
+      <hr class="ss-email-break" style="display:none;">
+      <span class="ss-required-asterisk">* Required</span>
+      <form onsubmit='return Validate();'
+          name='report_form' id='report_form'
+          action='{{ form_action }}' method='GET'>
+        <div class="errorbox-good"><div class="ss-form-entry">
+        <br>
+
+    {% for q in questions %}
+    {% ifnotequal q.type "hidden" %}
+    <div class="errorbox-good"><div class="ss-form-entry">
+      <label class="ss-q-title">{{ q.text }}
+      <span class="ss-required-asterisk">*</span></label>
+      <label class="ss-q-help">{{ q.help_text }}</label>
+      {% ifequal q.type "text" %}
+      <input class="ss-q-short" {{ q.validation }} type='text'
+          name='{{ q.id }}' id='{{ q.id }}'></input>
+      {% endifequal %}
+      {% ifequal q.type "select" %}
+      <select {{ q.validation }} name="{{ q.id }}" id = "{{ q.id }}"></select>
+      {% endifequal %}
+      <span id='{{q.id}}_error'></span>
+    </div></div>
+    {% endifnotequal %}
+    {% ifequal q.type "hidden" %}
+    <input class="ss-q-short" {{ q.validation }} type='hidden'
+        name='{{ q.id }}' id='{{ q.id }}' value='{{ q.value }}'></input>
+    {% endifequal %}
+    {% endfor %}
+        </div></div>
+        <br>
+        <input type='submit' value='Submt'>
+        <span id='submit_error'></span>
+      </form>
+    </div>
+  </body>
+</html>
