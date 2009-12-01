@@ -150,7 +150,7 @@ class SM3HomeTeaching:
     else:
       supervisor  = district.GetSupervisor()
       senior_comp = self._GetHTCompanionFromCsv(fields, 6)
-      junior_comp = self._GetHTCompanionFromCsv(fields, 8)
+      junior_comp = self._GetHTCompanionFromCsv(fields, 9)
       comp = HTCompanionship(comp_id, supervisor, senior_comp, junior_comp)
       district.AddCompanionship(comp)
     return comp
