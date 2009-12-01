@@ -104,13 +104,26 @@ class SM3HomeTeaching:
     self.districts       = {}
     self.district_offset = {}
     self.district_offset[0] = 0
+    self.QuorumIndex = 0
+    self.DistrictIdIndex = 1
+    self.SupervisorIndex = 2
+    self.CompIdIndex = 5
+    self.HomeTeacher1Index = 6
+    self.HomeTeacher2Index = 9
+    self.TeacheeIndex = 12
+    self.TeacheePhoneIndex = 13
+    self.TeacheeEmailIndex = 14
+    self.TeacheeStreet1Index = 15
+    self.TeacheeStreet2Index = 16
+    self.TeacheeCityIndex = 18
+    self.TeacheeZipIndex = 19
 
     for line in ht_file_lines:
       fields = self._SplitLine(line.strip())
-      if fields[0] == "Quorum" or fields[0] == "":
+      if fields[self.QuorumIndex] == "Quorum" or fields[self.QuorumIndex] == "":
         continue
-      district_id = int(fields[1])
-      quorum = int(fields[0].split()[-1])
+      district_id = int(fields[self.DistrictIdIndex])
+      quorum = int(fields[self.QuorumIndex].split()[-1])
       if not self.district_offset.has_key(quorum):
         self.district_offset[quorum] = 0
       if self.district_offset[quorum] < district_id:
@@ -118,7 +131,7 @@ class SM3HomeTeaching:
 
     for line in ht_file_lines:
       fields        = self._SplitLine(line.strip())
-      if fields[0] == "Quorum" or fields[0] == "":
+      if fields[self.QuorumIndex] == "Quorum" or fields[self.QuorumIndex] == "":
         continue
 
       district      = self._GetDistrictFromCsv(fields)
@@ -131,26 +144,27 @@ class SM3HomeTeaching:
     return self.districts
 
   def _GetDistrictFromCsv(self, fields):
-    quorum = int(fields[0].split()[-1])
-    district_id = int(fields[1]) + self.district_offset[quorum - 1]
+    quorum = int(fields[self.QuorumIndex].split()[-1])
+    district_id = (int(fields[self.DistrictIdIndex]) +
+        self.district_offset[quorum - 1])
     district = None
     if district_id in self.districts:
       district = self.districts[district_id]
     else:
-      supervisor = self._GetHTCompanionFromCsv(fields, 2)
+      supervisor = self._GetHTCompanionFromCsv(fields, self.SupervisorIndex)
       district   = HTDistrict(district_id, supervisor)
       self.districts[district_id] = district
     return district
 
   def _GetCompanionshipFromCsv(self, district, fields):
-    comp_id = int(fields[5])
+    comp_id = int(fields[self.CompIdIndex])
     comp = district.GetCompanionship(comp_id)
     if comp:
       return comp
     else:
       supervisor  = district.GetSupervisor()
-      senior_comp = self._GetHTCompanionFromCsv(fields, 6)
-      junior_comp = self._GetHTCompanionFromCsv(fields, 9)
+      senior_comp = self._GetHTCompanionFromCsv(fields, self.HomeTeacher1Index)
+      junior_comp = self._GetHTCompanionFromCsv(fields, self.HomeTeacher2Index)
       comp = HTCompanionship(comp_id, supervisor, senior_comp, junior_comp)
       district.AddCompanionship(comp)
     return comp
@@ -165,13 +179,20 @@ class SM3HomeTeaching:
     return HomeTeacher(first_name, last_name, fields[index + 1])
 
   def _GetAssignmentFromCsv(self, fields):
-    first_name = fields[9].split(",")[1].strip()
-    last_name  = fields[9].split(",")[0].strip()
-    street     = fields[13]
-    if fields[14] != "":
-      street = street + " " + fields[14]
-    assignment = HTAssignment(fields[4], first_name, last_name, fields[10],
-      fields[12], street, fields[16], fields[17])
+    first_name = fields[self.TeacheeIndex].split(",")[1].strip()
+    last_name  = fields[self.TeacheeIndex].split(",")[0].strip()
+    street     = fields[self.TeacheeStreet1Index]
+    if fields[self.TeacheeStreet2Index] != "":
+      street = street + " " + fields[self.TeacheeStreet2Index]
+
+    assignment = HTAssignment(fields[self.CompIdIndex],
+                              first_name,
+                              last_name,
+                              fields[self.TeacheePhoneIndex],
+                              fields[self.TeacheeEmailIndex],
+                              street,
+                              fields[self.TeacheeCityIndex],
+                              fields[self.TeacheeZipIndex])
     return assignment
 
   def _SplitLine(self, line):
