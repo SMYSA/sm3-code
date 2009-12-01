@@ -23,6 +23,7 @@ from google.appengine.ext import webapp
 
 from InitialAssessment import InitialAssessment
 from WeeklyReport import WeeklyReport
+from FinalReport import FinalReport
 
 
 class InitialAssessmentHandler(webapp.RequestHandler):
@@ -39,11 +40,19 @@ class WeeklyReportHandler(webapp.RequestHandler):
     for r in reports:
       r.PrintInsertStatement(self.response.out)
 
+class FinalReportHandler(webapp.RequestHandler):
+  def get(self):
+    reports = FinalReport.gql("ORDER BY submit_date")
+    self.response.headers["Content-Type"] = "text/plain"
+    for r in reports:
+      r.PrintInsertStatement(self.response.out)
+
 
 def main():
   application = webapp.WSGIApplication([
       ('/sql/initial_assessment', InitialAssessmentHandler),
       ('/sql/weekly_report', WeeklyReportHandler),
+      ('/sql/final_report', FinalReportHandler),
       ],
       debug=True)
   wsgiref.handlers.CGIHandler().run(application)

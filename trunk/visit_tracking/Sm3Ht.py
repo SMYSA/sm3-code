@@ -143,14 +143,14 @@ class SM3HomeTeaching:
     return district
 
   def _GetCompanionshipFromCsv(self, district, fields):
-    comp_id = int(fields[4])
+    comp_id = int(fields[5])
     comp = district.GetCompanionship(comp_id)
     if comp:
       return comp
     else:
       supervisor  = district.GetSupervisor()
-      senior_comp = self._GetHTCompanionFromCsv(fields, 5)
-      junior_comp = self._GetHTCompanionFromCsv(fields, 7)
+      senior_comp = self._GetHTCompanionFromCsv(fields, 6)
+      junior_comp = self._GetHTCompanionFromCsv(fields, 8)
       comp = HTCompanionship(comp_id, supervisor, senior_comp, junior_comp)
       district.AddCompanionship(comp)
     return comp

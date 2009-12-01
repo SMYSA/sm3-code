@@ -62,11 +62,26 @@ class InitialAssessment(db.Model):
           ))
     writer.write("VALUES('%s', '%s', '%s', '%s', '%s'," % (
             self.unit, self.stake, self.name, self.email, self.phone))
-    writer.write("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s');\n" % (
+
+#    writer.write("%d\n" % (self.total_members or 0))
+#    writer.write("%d\n" % (self.active_members or 0))
+#    writer.write("%d\n" % (self.less_active_members or 0))
+#    writer.write("%d\n" % (self.stake_ysa_members or 0))
+#    writer.write("%d\n" % (self.active_temple_recommends or 0))
+#    writer.write("%d\n" % self.expired_temple_recommends)
+#    writer.write("%d\n" % self.potential_temple_recommends)
+#    writer.write("%d\n" % self.avg_temple_distance)
+#    writer.write("%d\n" % self.may17_est)
+#    writer.write("%d\n" % self.aug8_est)
+#    writer.write("%d\n" % self.registered_voters)
+#    writer.write("%s\n" % self.submit_date.ctime())
+
+#    writer.write("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s');\n" % (
+    writer.write("%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, '%s');\n" % (
         self.total_members,
         self.active_members,
         self.less_active_members,
-        self.stake_ysa_members,
+        self.stake_ysa_members or 0,
         self.active_temple_recommends,
         self.expired_temple_recommends,
         self.potential_temple_recommends,

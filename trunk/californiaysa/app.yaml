@@ -4,14 +4,11 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: /
-  script: main.py
-
-- url: /initial_assessment
-  script: initial_assessment.py
-
 - url: /weekly_report
   script: weekly_report.py
+
+- url: /final_report
+  script: final_report.py
 
 - url: /submit/.*
   script: submit.py
