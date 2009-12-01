@@ -23,13 +23,15 @@ from google.appengine.ext import webapp
 
 from InitialAssessment import InitialAssessment
 from WeeklyReport import WeeklyReport
+from FinalReport import FinalReport
 
 
 class InitialAssessmentHandler(webapp.RequestHandler):
 
   def get(self):
     a = InitialAssessment()
-    a.unit = self.request.get("unit_select")
+#    a.unit = self.request.get("unit_select")
+    a.unit = self.request.get("unit")
     a.stake = self.request.get("stake_select")
     a.name = self.request.get("name")
     a.email = self.request.get("email")
@@ -56,7 +58,8 @@ class WeeklyReportHandler(webapp.RequestHandler):
   def get(self):
     r = WeeklyReport()
     r._entity = None
-    r.unit = self.request.get("unit_select")
+#    r.unit = self.request.get("unit_select")
+    r.unit = self.request.get("unit")
     r.stake = self.request.get("stake_select")
     r.name = self.request.get("name")
     r.email = self.request.get("email")
@@ -77,10 +80,30 @@ class WeeklyReportHandler(webapp.RequestHandler):
     r.sealings = int(self.request.get("sealings"))
     r.initiatories = int(self.request.get("initiatories"))
     r.baptisms_confirmations = int(self.request.get("baptisms_confirmations"))
-    r.family_file_names = int(self.request.get("family_file_names"))
     # End deprecated fields
 
+    r.family_file_names = int(self.request.get("family_file_names"))
     r.registered_voters = int(self.request.get("registered_voters"))
+    r.submit_date = datetime.now()
+    r.put()
+
+#    self.response.out.write(str(self.request))
+    self.redirect("/thanks.html")
+
+class FinalReportHandler(webapp.RequestHandler):
+
+  def get(self):
+    r = FinalReport()
+    r._entity = None
+    r.unit = self.request.get("unit")
+    r.stake = self.request.get("stake_select")
+    r.name = self.request.get("name")
+    r.email = self.request.get("email")
+    r.phone = self.request.get("phone")
+    r.aug8_active_members = int(self.request.get("aug8_active_members"))
+    r.aug8_less_active_members = int(
+        self.request.get("aug8_less_active_members"))
+    r.aug8_non_members = int(self.request.get("aug8_non_members"))
     r.submit_date = datetime.now()
     r.put()
 
@@ -92,6 +115,7 @@ def main():
   application = webapp.WSGIApplication([
       ('/submit/initial_assessment', InitialAssessmentHandler),
       ('/submit/weekly_report', WeeklyReportHandler),
+      ('/submit/final_report', FinalReportHandler),
       ],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)

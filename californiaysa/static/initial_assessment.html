@@ -51,10 +51,19 @@
         var phone = document.getElementById('phone');
         var stake = document.getElementById('stake');
         var unit = document.getElementById('unit');
+        var name = document.getElementById('name');
 
+        has_error = SetError(unit.value == "",
+                             "unit_error",
+                             "Please enter a unit");
+        
+        has_error = SetError(name.value == "",
+                             "name_error",
+                             "Please enter a name") || has_error;
+        
         has_error = SetError(!is_valid_email(email.value),
                              "email_error",
-                             "Please enter a valid email address");
+                             "Please enter a valid email address") || has_error;
         
         has_error = SetError(!is_valid_phone(phone.value),
                              "phone_error",
@@ -75,7 +84,8 @@
       }
       function AddStakeUnits() {
         var stakes = document.getElementById("stake_select");
-        var units = document.getElementById("unit_select");
+//        var units = document.getElementById("unit_select");
+        var units = null;
         AddSelectOptions(stakes, units);
       }
       function SetStakeFromUnit() {
@@ -101,11 +111,20 @@ We are collecting your contact information in case we need to follow-up with you
     <p></p>
     <hr class="ss-email-break" style="display:none;">
     <span class="ss-required-asterisk">* Required</span>
-    <form onsubmit='return Validate();' name='report_form' id='report_form' action='submit/initial_assessment' method='GET'> <div class="errorbox-good"><div class="ss-form-entry">
+    <form onsubmit='return Validate();' name='report_form' id='report_form' action='submit/initial_assessment' method='GET'>
+    <!--
+    <div class="errorbox-good"><div class="ss-form-entry">
         <br>
         <label class="ss-q-title">Unit<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <select onchange='SetStakeFromUnit();' name="unit_select" id = "unit_select"></select>
+        <span id='unit_error'></span>
+     </div></div>
+     -->
+      <div class="errorbox-good"><div class="ss-form-entry">
+        <label class="ss-q-title">Unit<span class="ss-required-asterisk">*</span></label>
+        <label class="ss-q-help"></label>
+        <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='unit' id='unit'></input>
         <span id='unit_error'></span>
      </div></div>
       <div class="errorbox-good"><div class="ss-form-entry">
@@ -196,12 +215,14 @@ We are collecting your contact information in case we need to follow-up with you
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='august8' id='august8'></input>
         <span id='august8_error'></span>
      </div></div>
+    <!--
       <div class="errorbox-good"><div class="ss-form-entry">
         <label class="ss-q-title">Total YSA Registered Voters<span class="ss-required-asterisk">*</span></label>
         <label class="ss-q-help"></label>
         <input class="ss-q-short" onkeyup='MaybeValidate();' type='text' name='voters' id='voters'></input>
         <span id='voters_error'></span>
      </div></div>
+     -->
      <br>
      <input type='submit' value='Submit'>
     </form>

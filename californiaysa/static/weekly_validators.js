@@ -16,18 +16,28 @@ __int_ids = [
 //  "sealings",
 //  "initiatories",
 //  "baptisms_confirmations",
-//  "family_file_names",
+  "family_file_names",
   "registered_voters"
 ];
 function Validate() {
   document.report_form["submit_attempt"] = true;
   var has_error = false;
+  var unit = document.getElementById('unit');
+  var name = document.getElementById('name');
   var email = document.getElementById('email');
   var phone = document.getElementById('phone');
 
+  has_error = SetError(unit.value == "",
+    "unit_error",
+    "Please enter a unit name");
+
+  has_error = SetError(name.value == "",
+    "name_error",
+    "Please enter a name") || has_error;
+
   has_error = SetError(!is_valid_email(email.value),
     "email_error",
-    "Please enter a valid email address");
+    "Please enter a valid email address") || has_error;
         
   has_error = SetError(!is_valid_phone(phone.value),
     "phone_error",
@@ -54,7 +64,8 @@ function MaybeValidate() {
 }
 function AddStakeUnits() {
   var stakes = document.getElementById("stake_select");
-  var units = document.getElementById("unit_select");
+//  var units = document.getElementById("unit_select");
+  var units = null;
   AddSelectOptions(stakes, units);
 }
 function SetStakeFromUnit() {

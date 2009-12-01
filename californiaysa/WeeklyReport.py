@@ -30,8 +30,11 @@ class WeeklyReport(db.Model):
   reissued_temple_recommends = db.IntegerProperty()
   first_time_temple_recommends = db.IntegerProperty()
   temple_ordinances = db.IntegerProperty()
-  registered_voters = db.IntegerProperty()
   submit_date = db.DateTimeProperty(auto_now_add=True)
+
+  # Requested to remove voting references
+  registered_voters = db.IntegerProperty()
+  # End Deprecated fields
 
   # These fields are no longer used.  They have been replaced by
   # the "temple_ordinances field.
@@ -48,11 +51,14 @@ class WeeklyReport(db.Model):
     db.Model.__init__(self, *args, **kw)
     self.questions = []
     self.questions.append({
-        "id": "unit_select",
-        "type": "select",
+        "id": "unit",
+#        "id": "unit_select",
+#        "type": "select",
+        "type": "text",
         "text": "Unit",
         "help_text": "",
-        "validation": "onchange='SetStakeFromUnit();'"
+#        "validation": "onchange='SetStakeFromUnit();'"
+        "validation": "onkeyup='MaybeValidate();'"
         })
     self.questions.append({
         "id": "stake_select",
@@ -66,7 +72,8 @@ class WeeklyReport(db.Model):
         "type": "text",
         "text": "Name",
         "help_text": "",
-        "validation": ""
+        "validation": "",
+        "validation": "onkeyup='MaybeValidate();'"
         })
     self.questions.append({
         "id": "email",
@@ -122,7 +129,7 @@ class WeeklyReport(db.Model):
     self.questions.append({
         "id": "temple_ordinances",
         "type": "text",
-        "text": "Temple Ordinances (YSA)",
+        "text": "Temple Ordinances Performed (YSA)",
         "help_text": "",
         "validation": "onkeyup='MaybeValidate();'"
         })
@@ -160,23 +167,27 @@ class WeeklyReport(db.Model):
         "validation": "onkeyup='MaybeValidate();'",
         "value": "0",
         })
+    # End deprecated fields
+
     self.questions.append({
         "id": "family_file_names",
-        "type": "hidden",
+        "type": "text",
         "text": "Ordinances from Family File Names",
+        "help_text": "",
+        "validation": "onkeyup='MaybeValidate();'",
+#        "value": "0",
+        })
+
+    # DEPRECATED
+    self.questions.append({
+        "id": "registered_voters",
+        "type": "hidden",
+        "text": "Total Registered YSA Voters (Running Total)",
         "help_text": "",
         "validation": "onkeyup='MaybeValidate();'",
         "value": "0",
         })
-    # End deprecated fields
-
-    self.questions.append({
-        "id": "registered_voters",
-        "type": "text",
-        "text": "Total Registered YSA Voters (Running Total)",
-        "help_text": "",
-        "validation": "onkeyup='MaybeValidate();'"
-        })
+    # END DEPRECATED
 
 
   def GetQuestionList(self):
@@ -185,7 +196,7 @@ class WeeklyReport(db.Model):
   def PrintInsertStatement(self, writer):
     writer.write("INSERT INTO %s " % self.DB_NAME)
     writer.write(("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, " +
-        "%s, %s, %s, %s) ") % (
+        "%s, %s, %s, %s, %s) ") % (
           "Unit",
           "Stake",
           "Name",
@@ -200,13 +211,14 @@ class WeeklyReport(db.Model):
           "Sealings",
           "Initiatories",
           "Baptisms_Confirmations",
+          "Temple_Ordinances",
           "Family_File_Name",
           "Registered_Voters",
           "Submit_Date",
           ))
     writer.write("VALUES('%s', '%s', '%s', '%s', '%s'," % (
             self.unit, self.stake, self.name, self.email, self.phone))
-    writer.write("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s');\n" % (
+    writer.write("%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s');\n" % (
         self.less_active_visits,
         self.stake_ysa_visits,
         self.renewed_temple_recommends,
@@ -216,6 +228,7 @@ class WeeklyReport(db.Model):
         self.sealings,
         self.initiatories,
         self.baptisms_confirmations,
+        self.temple_ordinances or 0,
         self.family_file_names,
         self.registered_voters,
         self.submit_date.ctime(),
