@@ -77,6 +77,8 @@ print "<a href=display_novisits?group=%s>Click here </a>" % ht_or_vt
 print "to see who has not reported any visits in two monhts<br>"
 print "<a href=display_notvisited?group=%s>Click here </a>" % ht_or_vt
 print "to see has not had a hometeacher report visiting them in 3 months<br>"
+print "<a href=csv_download?group=%s>Click here </a>" % ht_or_vt
+print "to download hometeaching reports<br>"
 print "<br/><br/>"
 HtmlReuse.PrintCal("upload?group=%s" % ht_or_vt, month_diff)
 print "<br/><br/>"
