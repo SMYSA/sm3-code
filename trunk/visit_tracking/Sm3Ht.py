@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+import csv
+import re
+
+
 class ReportInfo:
   def __init__(self):
     self.visited = False
@@ -8,6 +12,14 @@ class ReportInfo:
     self.reported_by = ""
     self.contact_types = []
 
+  def csv(self):
+    import csv
+    writer = csv.writer(sys.stdout)
+    writer.writerow([self.visited,
+                     self.reported,
+                     self.report_notes,
+                     self.reported_by,
+                     self.contact_type])
 
 class HTDistrict:
   def __init__(self, d_id, supervisor):
@@ -100,7 +112,7 @@ class SM3HomeTeaching:
   #  18 - HT Assignment State
   #  19 - HT Assignment Country
   #
-  def __init__(self, ht_file_lines):
+  def __init__(self, ht_file):
     self.districts       = {}
     self.district_offset = {}
     self.district_offset[0] = 0
@@ -118,20 +130,22 @@ class SM3HomeTeaching:
     self.TeacheeCityIndex = 18
     self.TeacheeZipIndex = 19
 
-    for line in ht_file_lines:
-      fields = self._SplitLine(line.strip())
-      if fields[self.QuorumIndex] == "Quorum" or fields[self.QuorumIndex] == "":
+    csv_reader = csv.reader(ht_file)
+    ht_file_lines = []
+    for row in csv_reader:
+      ht_file_lines.append(row)
+    for fields in ht_file_lines:
+      if not fields or fields[self.QuorumIndex] == "Quorum" or fields[self.QuorumIndex] == "":
         continue
       district_id = int(fields[self.DistrictIdIndex])
-      quorum = int(fields[self.QuorumIndex].split()[-1])
+      quorum = self._GetQuorum(fields[self.QuorumIndex])
       if not self.district_offset.has_key(quorum):
         self.district_offset[quorum] = 0
       if self.district_offset[quorum] < district_id:
         self.district_offset[quorum] = district_id
 
-    for line in ht_file_lines:
-      fields        = self._SplitLine(line.strip())
-      if fields[self.QuorumIndex] == "Quorum" or fields[self.QuorumIndex] == "":
+    for fields in ht_file_lines:
+      if not fields or fields[self.QuorumIndex] == "Quorum" or fields[self.QuorumIndex] == "":
         continue
 
       district      = self._GetDistrictFromCsv(fields)
@@ -143,8 +157,14 @@ class SM3HomeTeaching:
   def GetHTDistricts(self):
     return self.districts
 
+  def _GetQuorum(self, val):
+    match = re.search("\w+ (\d+)", val)
+    if match:
+      return match.group(1)
+    return 1
+
   def _GetDistrictFromCsv(self, fields):
-    quorum = int(fields[self.QuorumIndex].split()[-1])
+    quorum = self._GetQuorum(fields[self.QuorumIndex])
     district_id = (int(fields[self.DistrictIdIndex]) +
         self.district_offset[quorum - 1])
     district = None
@@ -202,8 +222,9 @@ class SM3HomeTeaching:
     return fields
 
 if __name__ == "__main__":
-  ht_file_name = "HomeTeaching.csv"
-  sm3_ht = SM3HomeTeaching(ht_file_name)
+#  ht_file_name = "HomeTeaching.csv"
+  ht_file_name = "/Users/lloydthompson/Downloads/MLS_Export4AUG2010.csv"
+  sm3_ht = SM3HomeTeaching(open(ht_file_name, "r"))
   districts = sm3_ht.GetHTDistricts()
   for d in districts:
     print str(d) + " ",
